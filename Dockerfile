@@ -13,7 +13,7 @@ FROM alpine:latest
 WORKDIR /root/
 
 RUN apk update && apk upgrade && \
-    apk add --no-cache bash git openssh
+    apk add --no-cache bash git openssh subversion
     
 ENV S2I_CONFIG_PATH=/root/data/config.json
 COPY --from=builder /go/src/github.com/kubesphere/s2irun/builder .

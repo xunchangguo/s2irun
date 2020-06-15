@@ -271,6 +271,8 @@ type Config struct {
 	// SourceURL is  url of the codes such as https://github.com/a/b.git
 	SourceURL string `json:"sourceURL,omitempty"`
 
+	SvnAuthentication AuthConfig `json:"svnAuthentication,omitempty"`
+
 	// IsBinaryURL explain the type of SourceURL.
 	// If it is IsBinaryURL, it will download the file directly without using git.
 	IsBinaryURL bool `json:"isBinaryURL,omitempty"`

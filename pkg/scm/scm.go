@@ -7,6 +7,7 @@ import (
 	"github.com/kubesphere/s2irun/pkg/scm/downloaders/empty"
 	"github.com/kubesphere/s2irun/pkg/scm/downloaders/file"
 	gitdownloader "github.com/kubesphere/s2irun/pkg/scm/downloaders/git"
+	svndownloader "github.com/kubesphere/s2irun/pkg/scm/downloaders/svn"
 	"github.com/kubesphere/s2irun/pkg/scm/git"
 	"github.com/kubesphere/s2irun/pkg/utils/cmd"
 	"github.com/kubesphere/s2irun/pkg/utils/fs"
@@ -50,6 +51,10 @@ func DownloaderForSource(fs fs.FileSystem, s *git.URL, forceCopy bool) (build.Do
 		if !git.HasGitBinary() {
 			return &file.File{FileSystem: fs}, nil
 		}
+	}
+
+	if "svn" == s.URL.Scheme {
+		return &svndownloader.Clone{FileSystem: fs, CommandRunner: cmd.NewCommandRunner()}, nil
 	}
 
 	return &gitdownloader.Clone{Git: git.New(fs, cmd.NewCommandRunner()), FileSystem: fs}, nil
